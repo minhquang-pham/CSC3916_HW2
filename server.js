@@ -79,6 +79,7 @@ router.route('/testcollection')
         if (req.get('Content-Type')) {
             res = res.type(req.get('Content-Type'));
         }
+    
         var o = getJSONObjectForMovieRequirement(req);
         res.json(o);
     }
@@ -89,6 +90,7 @@ router.route('/testcollection')
         if (req.get('Content-Type')) {
             res = res.type(req.get('Content-Type'));
         }
+    
         var o = getJSONObjectForMovieRequirement(req);
         res.json(o);
     }
@@ -103,8 +105,9 @@ router.route('/movies')
             console.log("Content-Type: " + req.get('Content-Type'));
             res = res.type(req.get('Content-Type'));
         }
-
-        res.json(JSONObjectSetMessage(req, "GET movies"));
+        
+        var o = getJSONObjectForMovieRequirement(req);
+        res.json((req, "GET movies"));
 
     })
     .post(function (req, res) {
@@ -116,7 +119,8 @@ router.route('/movies')
             res = res.type(req.get('Content-Type'));
         }
 
-        res.json(JSONObjectSetMessage(req, "Successfully created new movie"));
+        var o = getJSONObjectForMovieRequirement(req);
+        res.json((req, "Successfully created new movie"));
     })
     .put(authJwtController.isAuthenticated, function (req, res) {
         console.log(req.body);
@@ -126,8 +130,9 @@ router.route('/movies')
             console.log("Content-Type: " + req.get('Content-Type'));
             res = res.type(req.get('Content-Type'));
         }
-
-        res.json(JSONObjectSetMessage(req, "Successfully updated a movie"));
+    
+        var o = getJSONObjectForMovieRequirement(req);
+        res.json((req, "Successfully updated a movie"));
     })
     .delete(authController.isAuthenticated, function (req, res) {
 
@@ -138,8 +143,9 @@ router.route('/movies')
             console.log("Content-Type: " + req.get('Content-Type'));
             res = res.type(req.get('Content-Type'));
         }
-
-        res.json(JSONObjectSetMessage(req, "Successfully deleted a movie"));
+    
+        var o = getJSONObjectForMovieRequirement(req);
+        res.json((req, "Successfully deleted a movie"));
     });
 
 app.use('/', router);
