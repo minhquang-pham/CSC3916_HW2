@@ -94,6 +94,54 @@ router.route('/testcollection')
     }
     );
 
+router.route('/movies')
+    .get( function (req, res) {
+        console.log(req.body);
+        res = res.status(200);
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        res.json(JSONObjectSetMessage(req, "GET movies"));
+
+    })
+    .post(function (req, res) {
+        console.log(req.body);
+        res = res.status(200);
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        res.json(JSONObjectSetMessage(req, "Successfully created new movie"));
+    })
+    .put(authJwtController.isAuthenticated, function (req, res) {
+        console.log(req.body);
+        res = res.status(200);
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        res.json(JSONObjectSetMessage(req, "Successfully updated a movie"));
+    })
+    .delete(authController.isAuthenticated, function (req, res) {
+
+        console.log(req.body);
+        res = res.status(200);
+
+        if (req.get('Content-Type')) {
+            console.log("Content-Type: " + req.get('Content-Type'));
+            res = res.type(req.get('Content-Type'));
+        }
+
+        res.json(JSONObjectSetMessage(req, "Successfully deleted a movie"));
+    });
+
 app.use('/', router);
 app.listen(process.env.PORT || 8080);
 module.exports = app; // for testing only
